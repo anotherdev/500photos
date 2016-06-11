@@ -9,6 +9,10 @@ public class CategoryActivity extends P5Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_category);
+    }
+
+    @Override
+    protected int getActivityLayout() {
+        return R.layout.activity_category;
     }
 }
