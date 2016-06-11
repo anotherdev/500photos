@@ -6,7 +6,17 @@ repositories {
     maven { url 'https://maven.fabric.io/public' }
 }
 
+def gitSha() {
+    return 'git rev-parse --short HEAD'.execute().text.trim()
+}
+
+def wrapString(aString) {
+    return '"' + aString + '"'
+}
+
 android {
+    def GIT_SHA = "GIT_SHA"
+
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
 
@@ -17,6 +27,8 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+
+        buildConfigField 'String', GIT_SHA, wrapString(gitSha())
     }
 
     buildTypes {
@@ -27,6 +39,13 @@ android {
         debug {
             applicationIdSuffix ".debug"
             versionNameSuffix " DEBUG"
+        }
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            output.outputFile = new File(output.outputFile.parentFile,
+                    output.outputFile.name.replace(".apk", "-${variant.versionName}-${variant.versionCode}.apk"));
         }
     }
 }
@@ -40,4 +59,6 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.5.6@aar') {
         transitive = true;
     }
+
+    compile 'com.jakewharton.timber:timber:4.1.2'
 }

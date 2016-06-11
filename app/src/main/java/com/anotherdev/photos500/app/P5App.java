@@ -2,10 +2,14 @@ package com.anotherdev.photos500.app;
 
 import android.app.Application;
 
+import com.anotherdev.photos500.BuildConfig;
+import com.anotherdev.photos500.analytics.CrashlyticsKey;
+import com.anotherdev.photos500.analytics.CrashlyticsTree;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 
 import io.fabric.sdk.android.Fabric;
+import timber.log.Timber;
 
 public class P5App extends Application {
 
@@ -27,5 +31,9 @@ public class P5App extends Application {
                 .build();
 
         Fabric.with(fabric);
+
+        Timber.plant(new CrashlyticsTree());
+
+        Crashlytics.setString(CrashlyticsKey.GIT_SHA, BuildConfig.GIT_SHA);
     }
 }
