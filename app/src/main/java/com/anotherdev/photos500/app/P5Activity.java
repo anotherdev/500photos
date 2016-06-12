@@ -9,11 +9,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.anotherdev.photos500.R;
+import com.karumi.rosie.view.PresenterLifeCycleLinker;
+import com.karumi.rosie.view.RosiePresenter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public abstract class P5Activity extends AppCompatActivity {
+public abstract class P5Activity extends AppCompatActivity implements RosiePresenter.View {
+
+    private final PresenterLifeCycleLinker presenterLifeCycleLinker = new PresenterLifeCycleLinker();
 
     @Nullable @BindView(R.id.toolbar) Toolbar toolbar;
 
@@ -34,6 +38,8 @@ public abstract class P5Activity extends AppCompatActivity {
                 }
             }
         }
+
+        presenterLifeCycleLinker.initializeLifeCycle(this, this);
     }
 
     @LayoutRes
@@ -44,5 +50,23 @@ public abstract class P5Activity extends AppCompatActivity {
     @NonNull
     protected P5App getApp() {
         return (P5App) getApplication();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenterLifeCycleLinker.updatePresenters(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        presenterLifeCycleLinker.pausePresenters();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenterLifeCycleLinker.destroyPresenters();
     }
 }
