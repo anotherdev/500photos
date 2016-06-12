@@ -8,13 +8,19 @@ import android.support.v7.widget.RecyclerView;
 import com.anotherdev.photos500.R;
 import com.anotherdev.photos500.intent.ViewPhotoInCategoryIntent;
 import com.anotherdev.photos500.model.Category;
+import com.anotherdev.photos500.presenter.PhotoPresenter;
 import com.anotherdev.photos500.presenter.PresenterComponent;
+import com.karumi.rosie.view.Presenter;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 
-public class PhotoListActivity extends P5Activity {
+public class PhotoListActivity extends P5Activity implements PhotoPresenter.View {
 
-    @BindView(R.id.recyclerview) RecyclerView categoryView;
+    @Inject @Presenter PhotoPresenter photoPresenter;
+
+    @BindView(R.id.recyclerview) RecyclerView photoView;
 
     private Category category;
 
@@ -22,7 +28,7 @@ public class PhotoListActivity extends P5Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        category = ViewPhotoInCategoryIntent.getCategory(getIntent()).or(Category.UNCATEGORIZED);
+        initPhotoListView();
     }
 
     @Override
@@ -32,14 +38,25 @@ public class PhotoListActivity extends P5Activity {
 
     @Override
     protected void onInjectComponent(@NonNull PresenterComponent pc) {
+        pc.inject(this);
+    }
+
+    @Override
+    protected void onPreparePresenter() {
+        super.onPreparePresenter();
+        category = ViewPhotoInCategoryIntent.getCategory(getIntent()).or(Category.UNCATEGORIZED);
+        photoPresenter.setCategory(category);
+        setTitle(category.apiKey());
     }
 
     private void initPhotoListView() {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        setTitle(category.apiKey());
+    public void showPhotos() {
+    }
+
+    @Override
+    public void viewPhotoInFullscreen() {
     }
 }

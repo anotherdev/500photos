@@ -1,6 +1,7 @@
 package com.anotherdev.photos500.domain;
 
 import com.anotherdev.photos500.app.P5App;
+import com.anotherdev.photos500.repository.PhotoRepository;
 import com.karumi.rosie.domain.usecase.TaskScheduler;
 import com.karumi.rosie.domain.usecase.UseCaseHandler;
 import com.karumi.rosie.domain.usecase.error.ErrorHandler;
@@ -35,5 +36,9 @@ public class RosieAndroidModule {
 
     @Provides @Singleton public UseCaseHandler provideUseCaseHandler(TaskScheduler taskScheduler, ErrorHandler errorHandler) {
         return new UseCaseHandler(taskScheduler, errorHandler);
+    }
+
+    @Provides public GetPhotosInCategory provideGetPhotosInCategoryUseCase() {
+        return new GetPhotosInCategory(new PhotoRepository());
     }
 }

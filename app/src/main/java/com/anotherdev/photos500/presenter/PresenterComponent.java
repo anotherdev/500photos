@@ -2,6 +2,7 @@ package com.anotherdev.photos500.presenter;
 
 import com.anotherdev.photos500.app.AppModule;
 import com.anotherdev.photos500.app.CategoryListActivity;
+import com.anotherdev.photos500.app.PhotoListActivity;
 import com.anotherdev.photos500.domain.RosieAndroidModule;
 
 import javax.inject.Singleton;
@@ -17,4 +18,5 @@ import dagger.Component;
 public interface PresenterComponent {
 
     void inject(CategoryListActivity activity);
+    void inject(PhotoListActivity activity);
 }
