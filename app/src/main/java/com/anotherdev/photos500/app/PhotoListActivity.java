@@ -9,7 +9,7 @@ import com.anotherdev.photos500.intent.ViewPhotoInCategoryIntent;
 import com.anotherdev.photos500.model.Category;
 import com.anotherdev.photos500.presenter.PresenterComponent;
 
-public class PhotoActivity extends P5Activity {
+public class PhotoListActivity extends P5Activity {
 
     private Category category;
 

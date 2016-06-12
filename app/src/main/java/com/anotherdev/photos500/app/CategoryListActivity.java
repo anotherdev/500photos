@@ -30,7 +30,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import timber.log.Timber;
 
-public class CategoryActivity extends P5Activity implements CategoryPresenter.View {
+public class CategoryListActivity extends P5Activity implements CategoryPresenter.View {
 
     @Inject @Presenter CategoryPresenter categoryPresenter;
 

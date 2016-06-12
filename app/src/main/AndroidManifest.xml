@@ -13,14 +13,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name="com.anotherdev.photos500.app.CategoryActivity">
+        <activity android:name=".app.CategoryListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name="com.anotherdev.photos500.app.PhotoActivity" />
+        <activity android:name=".app.PhotoListActivity" />
 
     </application>
 

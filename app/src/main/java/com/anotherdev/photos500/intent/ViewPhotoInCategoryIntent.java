@@ -3,7 +3,7 @@ package com.anotherdev.photos500.intent;
 import android.content.Context;
 import android.content.Intent;
 
-import com.anotherdev.photos500.app.PhotoActivity;
+import com.anotherdev.photos500.app.PhotoListActivity;
 import com.anotherdev.photos500.model.Category;
 import com.google.common.base.Optional;
 
@@ -13,7 +13,7 @@ public class ViewPhotoInCategoryIntent extends P5Intent {
 
 
     public ViewPhotoInCategoryIntent(Context context, final Category category) {
-        super(context, PhotoActivity.class);
+        super(context, PhotoListActivity.class);
         putExtra(EXTRA_CATEGORY, category);
     }
 
