@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import com.anotherdev.photos500.R;
 import com.anotherdev.photos500.api.dto.Photo;
 import com.anotherdev.photos500.api.dto.PhotoPage;
+import com.anotherdev.photos500.intent.ViewFullscreenPhoto;
 import com.anotherdev.photos500.intent.ViewPhotoInCategoryIntent;
 import com.anotherdev.photos500.model.Category;
 import com.anotherdev.photos500.presenter.PhotoPresenter;
@@ -64,16 +65,6 @@ public class PhotoListActivity extends P5Activity implements PhotoPresenter.View
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        final int itemId = item.getItemId();
-        if (android.R.id.home == itemId) {
-            finish();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     protected void onPreparePresenter() {
         super.onPreparePresenter();
         category = ViewPhotoInCategoryIntent.getCategory(getIntent()).or(Category.UNCATEGORIZED);
@@ -121,5 +112,7 @@ public class PhotoListActivity extends P5Activity implements PhotoPresenter.View
     @Override
     public void viewPhotoInFullscreen(Photo photo) {
         Timber.e("viewPhotoInFullscreen: %s", photo.getImageUrl());
+        ViewFullscreenPhoto intent = new ViewFullscreenPhoto(this, photo);
+        startActivity(intent);
     }
 }

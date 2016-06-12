@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 
 import com.anotherdev.photos500.R;
 import com.anotherdev.photos500.presenter.PresenterComponent;
@@ -51,13 +52,23 @@ public abstract class P5Activity extends AppCompatActivity implements RosiePrese
 
     protected void setupSupportActionBar(@NonNull ActionBar actionBar) {}
 
-    protected abstract void onInjectComponent(@NonNull PresenterComponent pc);
+    protected void onInjectComponent(@NonNull PresenterComponent pc) {}
 
     protected void onPreparePresenter() {}
 
     @NonNull
     protected P5App getApp() {
         return (P5App) getApplication();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        final int itemId = item.getItemId();
+        if (android.R.id.home == itemId) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

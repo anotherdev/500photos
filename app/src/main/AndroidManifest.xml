@@ -22,6 +22,8 @@
 
         <activity android:name=".app.PhotoListActivity" />
 
+        <activity android:name=".app.FullscreenPhotoActivity" />
+
     </application>
 
 </manifest>
