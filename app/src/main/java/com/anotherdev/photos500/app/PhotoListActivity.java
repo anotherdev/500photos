@@ -119,6 +119,7 @@ public class PhotoListActivity extends P5Activity implements PhotoPresenter.View
     }
 
     @Override
-    public void viewPhotoInFullscreen() {
+    public void viewPhotoInFullscreen(Photo photo) {
+        Timber.e("viewPhotoInFullscreen: %s", photo.getImageUrl());
     }
 }

@@ -1,5 +1,6 @@
 package com.anotherdev.photos500.presenter;
 
+import com.anotherdev.photos500.api.dto.Photo;
 import com.anotherdev.photos500.api.dto.PhotoPage;
 import com.anotherdev.photos500.domain.GetPhotosInCategory;
 import com.anotherdev.photos500.model.Category;
@@ -36,8 +37,8 @@ public class PhotoPresenter extends P5Presenter<PhotoPresenter.View> {
         this.category = category;
     }
 
-    public void onPhotoClicked() {
-        getView().viewPhotoInFullscreen();
+    public void onPhotoClicked(Photo photo) {
+        getView().viewPhotoInFullscreen(photo);
     }
 
     public void onLoadMore() {
@@ -68,6 +69,6 @@ public class PhotoPresenter extends P5Presenter<PhotoPresenter.View> {
 
         void showHasMore(boolean hasMore);
 
-        void viewPhotoInFullscreen();
+        void viewPhotoInFullscreen(Photo photo);
     }
 }

@@ -51,5 +51,19 @@ public class PhotoRenderer extends P5Renderer<Photo> {
             card.setVisibility(View.GONE);
             progress.setVisibility(View.VISIBLE);
         }
+
+        card.setOnClickListener(onClick);
+        card.setTag(photo);
     }
+
+
+    private final View.OnClickListener onClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Object tag = v.getTag();
+            if (tag instanceof Photo) {
+                presenter.onPhotoClicked((Photo) tag);
+            }
+        }
+    };
 }
