@@ -6,8 +6,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.anotherdev.photos500.R;
-import com.anotherdev.photos500.api.FiveHundredPxApi;
-import com.anotherdev.photos500.api.dto.Photo;
 import com.anotherdev.photos500.intent.ViewPhotoInCategoryIntent;
 import com.anotherdev.photos500.model.Category;
 import com.anotherdev.photos500.presenter.CategoryPresenter;
@@ -26,9 +24,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import timber.log.Timber;
 
 public class CategoryListActivity extends P5Activity implements CategoryPresenter.View {
 
@@ -44,24 +39,6 @@ public class CategoryListActivity extends P5Activity implements CategoryPresente
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initCategoryView();
-
-        AppComponent appComponent = getApp().getAppComponent();
-        FiveHundredPxApi api = appComponent.fiveHundredPxApi();
-
-        api.photos()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<Photo>() {
-                    @Override
-                    public void call(Photo s) {
-                        Timber.e("photos: %s", s);
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable t) {
-                        Timber.e(t, t.getMessage());
-                    }
-                });
-
         showCategories(Lists.newArrayList(Category.values()));
     }
 
