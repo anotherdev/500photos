@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import com.anotherdev.photos500.R;
 import com.anotherdev.photos500.intent.ViewFullscreenPhoto;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import butterknife.BindView;
 
@@ -40,6 +41,7 @@ public class FullscreenPhotoActivity extends P5Activity {
 
         Glide.with(this)
                 .load(imageUrl)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(image);
     }
 }

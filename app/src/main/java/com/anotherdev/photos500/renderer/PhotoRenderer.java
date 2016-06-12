@@ -11,6 +11,7 @@ import com.anotherdev.photos500.R;
 import com.anotherdev.photos500.api.dto.Photo;
 import com.anotherdev.photos500.presenter.PhotoPresenter;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import butterknife.BindView;
 
@@ -41,6 +42,7 @@ public class PhotoRenderer extends P5Renderer<Photo> {
         if (photo != null) {
             Glide.with(card.getContext())
                     .load(photo.getImageUrl())
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(imageView);
 
             name.setText(photo.getUser().getFullname());
