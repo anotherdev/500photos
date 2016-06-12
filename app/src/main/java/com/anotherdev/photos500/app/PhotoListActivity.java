@@ -22,7 +22,7 @@ public class PhotoListActivity extends P5Activity {
 
     @Override
     protected int getActivityLayout() {
-        return R.layout.activity_category;
+        return R.layout.activity_photo_list;
     }
 
     @Override

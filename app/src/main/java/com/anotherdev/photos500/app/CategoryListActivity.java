@@ -67,7 +67,7 @@ public class CategoryListActivity extends P5Activity implements CategoryPresente
 
     @Override
     protected int getActivityLayout() {
-        return R.layout.activity_category;
+        return R.layout.activity_category_list;
     }
 
     @Override
