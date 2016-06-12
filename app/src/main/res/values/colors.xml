@@ -2,5 +2,5 @@
 <resources>
     <color name="photos_500_primary">#1ba858</color>
     <color name="photos_500_primary_dark">#12753d</color>
-    <color name="photos_500_accent">#FF4081</color>
+    <color name="photos_500_accent">#448AFF</color>
 </resources>

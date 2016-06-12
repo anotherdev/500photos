@@ -15,7 +15,8 @@
     <android.support.v7.widget.CardView
         android:id="@+id/photo_preview_cardview"
         app:cardCornerRadius="2dp"
-        android:background="?attr/selectableItemBackground"
+        android:foreground="?attr/selectableItemBackground"
+        android:clickable="true"
         android:layout_margin="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -37,7 +38,6 @@
 
                 <ImageView
                     android:id="@+id/photo_preview_imageview"
-                    android:background="@color/photos_500_primary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:src="@mipmap/ic_launcher"
