@@ -6,15 +6,21 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.anotherdev.photos500.model.Category;
+import com.anotherdev.photos500.presenter.CategoryPresenter;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import timber.log.Timber;
 
 public class CategoryRenderer extends P5Renderer<Category> {
 
+    private final CategoryPresenter presenter;
+
     @BindView(android.R.id.text1) TextView textView;
 
+
+    public CategoryRenderer(CategoryPresenter presenter) {
+        this.presenter = presenter;
+    }
 
     @Override
     protected View inflate(LayoutInflater inflater, ViewGroup parent) {
@@ -30,7 +36,6 @@ public class CategoryRenderer extends P5Renderer<Category> {
 
     @OnClick(android.R.id.text1)
     public void onCategoryClicked() {
-        Category category = getContent();
-        Timber.e("onCategoryClicked: %s", category.apiKey());
+        presenter.onCategoryClicked(getContent());
     }
 }

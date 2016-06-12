@@ -20,6 +20,8 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="com.anotherdev.photos500.app.PhotoActivity" />
+
     </application>
 
 </manifest>

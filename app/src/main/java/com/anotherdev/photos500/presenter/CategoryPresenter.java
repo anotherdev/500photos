@@ -11,9 +11,15 @@ public class CategoryPresenter extends P5Presenter<CategoryPresenter.View> {
         super(handler);
     }
 
+    public void onCategoryClicked(Category category) {
+        getView().viewPhotoInCategory(category);
+    }
+
 
     public interface View extends P5Presenter.View {
 
         void showCategories(List<Category> categories);
+
+        void viewPhotoInCategory(Category category);
     }
 }

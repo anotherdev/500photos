@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import com.anotherdev.photos500.R;
 import com.anotherdev.photos500.api.FiveHundredPxApi;
 import com.anotherdev.photos500.api.dto.Photo;
+import com.anotherdev.photos500.intent.ViewPhotoInCategoryIntent;
 import com.anotherdev.photos500.model.Category;
 import com.anotherdev.photos500.presenter.CategoryPresenter;
 import com.anotherdev.photos500.presenter.PresenterComponent;
@@ -17,6 +18,7 @@ import com.karumi.rosie.view.Presenter;
 import com.pedrogomez.renderers.AdapteeCollection;
 import com.pedrogomez.renderers.ListAdapteeCollection;
 import com.pedrogomez.renderers.RVRendererAdapter;
+import com.pedrogomez.renderers.Renderer;
 import com.pedrogomez.renderers.RendererBuilder;
 
 import java.util.List;
@@ -78,7 +80,8 @@ public class CategoryActivity extends P5Activity implements CategoryPresenter.Vi
         categoryView.setHasFixedSize(true);
         categoryView.setLayoutManager(layoutManager);
 
-        RendererBuilder<Category> rendererBuilder = new RendererBuilder<>(new CategoryRenderer());
+        Renderer<Category> renderer = new CategoryRenderer(categoryPresenter);
+        RendererBuilder<Category> rendererBuilder = new RendererBuilder<>(renderer);
         categoryCollection = new ListAdapteeCollection<>();
         categoryAdapter = new RVRendererAdapter<>(rendererBuilder, categoryCollection);
         categoryView.setAdapter(categoryAdapter);
@@ -88,5 +91,11 @@ public class CategoryActivity extends P5Activity implements CategoryPresenter.Vi
     public void showCategories(List<Category> categories) {
         categoryAdapter.addAll(categories);
         categoryAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void viewPhotoInCategory(Category category) {
+        ViewPhotoInCategoryIntent intent = new ViewPhotoInCategoryIntent(this, category);
+        startActivity(intent);
     }
 }
