@@ -42,6 +42,7 @@ public abstract class P5Activity extends AppCompatActivity implements RosiePrese
 
         onInjectComponent(getApp().getPresenterComponent());
 
+        onPreparePresenter();
         presenterLifeCycleLinker.initializeLifeCycle(this, this);
     }
 
@@ -51,6 +52,8 @@ public abstract class P5Activity extends AppCompatActivity implements RosiePrese
     protected void setupSupportActionBar(@NonNull ActionBar actionBar) {}
 
     protected abstract void onInjectComponent(@NonNull PresenterComponent pc);
+
+    protected void onPreparePresenter() {}
 
     @NonNull
     protected P5App getApp() {
