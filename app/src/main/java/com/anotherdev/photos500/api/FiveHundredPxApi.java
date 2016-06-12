@@ -12,5 +12,5 @@ public interface FiveHundredPxApi {
 
 
     @GET("photos?feature=fresh_week")
-    Observable<PhotoPage> photos(@Query("only") String category);
+    Observable<PhotoPage> photos(@Query("only") String category, @Query("page") long page);
 }
