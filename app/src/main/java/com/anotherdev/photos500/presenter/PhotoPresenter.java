@@ -40,12 +40,17 @@ public class PhotoPresenter extends P5Presenter<PhotoPresenter.View> {
         getView().viewPhotoInFullscreen();
     }
 
+    public void onLoadMore() {
+        loadPhotos();
+    }
+
     private void loadPhotos() {
         createUseCaseCall(getPhotosInCategoryUseCase)
                 .args(category, Page.withOffsetAndLimit(offset, NUMBER_OF_PHOTOS_PER_PAGE))
                 .onSuccess(new OnSuccessCallback() {
                     @Success public void onPhotosLoaded(PaginatedCollection<PhotoPage> photoPages) {
                         showPhotos(photoPages);
+                        offset++;
                     }
                 })
                 .execute();
@@ -53,12 +58,15 @@ public class PhotoPresenter extends P5Presenter<PhotoPresenter.View> {
 
     private void showPhotos(PaginatedCollection<PhotoPage> photoPages) {
         getView().showPhotos(photoPages.getItems());
+        getView().showHasMore(photoPages.hasMore());
     }
 
 
     public interface View extends P5Presenter.View {
 
         void showPhotos(Collection<PhotoPage> photoPages);
+
+        void showHasMore(boolean hasMore);
 
         void viewPhotoInFullscreen();
     }

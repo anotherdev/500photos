@@ -15,10 +15,10 @@ import com.anotherdev.photos500.intent.ViewPhotoInCategoryIntent;
 import com.anotherdev.photos500.model.Category;
 import com.anotherdev.photos500.presenter.PhotoPresenter;
 import com.anotherdev.photos500.presenter.PresenterComponent;
+import com.anotherdev.photos500.renderer.PhotoListAdapteeCollection;
 import com.anotherdev.photos500.renderer.PhotoRenderer;
 import com.karumi.rosie.view.Presenter;
-import com.pedrogomez.renderers.AdapteeCollection;
-import com.pedrogomez.renderers.ListAdapteeCollection;
+import com.karumi.rosie.view.paginated.ScrollToBottomListener;
 import com.pedrogomez.renderers.RVRendererAdapter;
 import com.pedrogomez.renderers.RendererBuilder;
 
@@ -37,7 +37,8 @@ public class PhotoListActivity extends P5Activity implements PhotoPresenter.View
 
     Category category;
     RVRendererAdapter<Photo> photoAdapter;
-    AdapteeCollection<Photo> photoCollection;
+    PhotoListAdapteeCollection photoCollection;
+    ScrollToBottomListener loadMoreListener;
 
 
     @Override
@@ -87,9 +88,18 @@ public class PhotoListActivity extends P5Activity implements PhotoPresenter.View
 
         PhotoRenderer renderer = new PhotoRenderer(photoPresenter);
         RendererBuilder<Photo> rendererBuilder = new RendererBuilder<>(renderer);
-        photoCollection = new ListAdapteeCollection<>();
+        photoCollection = new PhotoListAdapteeCollection();
         photoAdapter = new RVRendererAdapter<>(rendererBuilder, photoCollection);
         photoView.setAdapter(photoAdapter);
+
+        loadMoreListener = new ScrollToBottomListener(layoutManager, new ScrollToBottomListener.Listener() {
+            @Override
+            public void onScrolledToBottom() {
+                photoPresenter.onLoadMore();
+                Timber.e("onScrolledToBottom()");
+            }
+        });
+        photoView.addOnScrollListener(loadMoreListener);
     }
 
     @Override
@@ -99,6 +109,13 @@ public class PhotoListActivity extends P5Activity implements PhotoPresenter.View
             photoAdapter.addAll(page.getPhotos());
             photoAdapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void showHasMore(final boolean hasMore) {
+        photoCollection.setShowLoadMore(hasMore);
+        loadMoreListener.setIsProcessing(false);
+        loadMoreListener.setIsEnabled(hasMore);
     }
 
     @Override

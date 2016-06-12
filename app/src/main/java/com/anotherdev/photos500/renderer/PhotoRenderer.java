@@ -30,6 +30,10 @@ public class PhotoRenderer extends P5Renderer<Photo> {
     public void render() {
         super.render();
         Photo photo = getContent();
-        textView.setText(photo.getName());
+        if (photo != null) {
+            textView.setText(photo.getName());
+        } else {
+            textView.setText("LOAD MORE");
+        }
     }
 }
