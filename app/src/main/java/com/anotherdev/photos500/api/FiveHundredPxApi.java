@@ -11,6 +11,6 @@ public interface FiveHundredPxApi {
     String BASE_URL = "https://api.500px.com/v1/";
 
 
-    @GET("photos?feature=fresh_week")
+    @GET("photos?feature=fresh_week&image_size=6")
     Observable<PhotoPage> photos(@Query("only") String category, @Query("page") long page);
 }
